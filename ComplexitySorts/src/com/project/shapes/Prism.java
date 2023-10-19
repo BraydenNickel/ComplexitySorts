@@ -1,5 +1,11 @@
 package com.project.shapes;
 
-public class Prism {
+public abstract class Prism  extends ThreeDimensionalShape{
+	double sideLength;
+	
+	public Prism(double height, double sideLength) {
+		super(height);
+		this.sideLength = sideLength;
+	}
 
 }
