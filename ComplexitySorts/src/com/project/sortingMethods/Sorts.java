@@ -1,12 +1,48 @@
 package com.project.sortingMethods;
 
-import java.util.List;
-
+import java.util.Comparator;
 import com.project.shapes.ThreeDimensionalShape;
 
 public class Sorts {
 	
 	// QUICKSORT //
+	public static void quickSort(ThreeDimensionalShape[] arr, int low, int high, Comparator<ThreeDimensionalShape> comparator) {
+	    int pivot;
+	    if (low < high) {
+	        pivot = partition(arr, low, high, comparator);
+	        quickSort(arr, low, pivot - 1, comparator);
+	        quickSort(arr, pivot + 1, high, comparator);
+	    }
+	}
+	
+	public static int partition(ThreeDimensionalShape[] arr, int low, int high, Comparator<ThreeDimensionalShape> comparator) {
+	    ThreeDimensionalShape pivotShape = arr[low];
+	    int left = low + 1;
+	    int right = high;
+
+	    while (true) {
+	        while (left <= right && comparator.compare(arr[left], pivotShape) <= 0) {
+	            left++;
+	        }
+
+	        while (left <= right && comparator.compare(arr[right], pivotShape) > 0) {
+	            right--;
+	        }
+
+	        if (left > right) {
+	            break;
+	        }
+
+	        swap(arr, left, right);
+	        left++;
+	        right--;
+	    }
+
+	    swap(arr, low, right);
+	    return right;
+	}
+	
+	/*
 	public static void quickSort(ThreeDimensionalShape[] arr, int low, int high) {
 		int pivot;
 		// Termination Condition //
@@ -16,7 +52,8 @@ public class Sorts {
 			quickSort(arr, pivot + 1, high);
 		}
 	}
-	
+	*/
+	/*
 	public static int partition(ThreeDimensionalShape[] arr, int low, int high) {
 		ThreeDimensionalShape pivotShape = arr[low];
 		int left = low + 1;
@@ -42,6 +79,8 @@ public class Sorts {
 		return right;
 	}
 	
+	*/
+	
 	public static void swap(ThreeDimensionalShape[] arr, int i, int j) {
 		ThreeDimensionalShape temp = arr[i];
 		arr[i] = arr[j];
@@ -49,15 +88,16 @@ public class Sorts {
 	}
 	
 	// BUBBLE SORT //
-	public static void bubbleSort(ThreeDimensionalShape[] arr) {
+	public static void bubbleSort(ThreeDimensionalShape[] arr, char choice) {
 		int size = arr.length; // get size of array
 		int pass, i;
 		boolean swapped = true; // sets swap check to true
+		Comparator<ThreeDimensionalShape> comparator = ThreeDimensionalShape.shapeComparator(choice);
 		
 		for(pass = size - 1; pass >= 0 && swapped; pass--) {
 			swapped = false; // sets swapped check to false for each pass
 			for(i = 0; i < pass; i++) {
-				if(compareShapes(arr[i], arr[i + 1]) > 0) {
+				if(comparator.compare(arr[i], arr[i + 1]) > 0) {
 					ThreeDimensionalShape temp = arr[i]; // swaps array if array is out of order
 					arr[i] = arr[i + 1];
 					arr[i + 1] = temp;
@@ -69,14 +109,16 @@ public class Sorts {
 	
 	// SELECTION SORT //
 	
-	public static void selectionSort(ThreeDimensionalShape[] arr) {
+	public static void selectionSort(ThreeDimensionalShape[] arr, char choice) {
 	    int size = arr.length; // get size of array
 	    int i, j, min;
 	    ThreeDimensionalShape temp;
+		Comparator<ThreeDimensionalShape> comparator = ThreeDimensionalShape.shapeComparator(choice);
+
 	    for (i = 0; i < size - 1; i++) {
 	        min = i; // assume index has a min value
 	        for (j = i + 1; j < size; j++) {
-	            if (compareShapes(arr[j], arr[min]) < 0) {
+	            if (comparator.compare(arr[j], arr[min]) < 0) {
 	                min = j; // update index for min value
 	            }
 	        }
@@ -88,15 +130,17 @@ public class Sorts {
 	
 	// INSERTION SORT //
 	
-	public static void insertionSort(ThreeDimensionalShape[] arr) {
+	public static void insertionSort(ThreeDimensionalShape[] arr, char choice) {
 	    int size = arr.length; // get size of array
 	    int i, j;
 	    ThreeDimensionalShape temp;
+		Comparator<ThreeDimensionalShape> comparator = ThreeDimensionalShape.shapeComparator(choice);
+
 	    for (i = 1; i < size; i++) {
 	        temp = arr[i]; // store the current shape in temp
 	        j = i; // initialize j to the current index
 	        // move shapes greater than temp to the right
-	        while (j > 0 && compareShapes(arr[j - 1], temp) > 0) {
+	        while (j > 0 && comparator.compare(arr[j - 1], temp) > 0) {
 	            arr[j] = arr[j - 1]; // shift elements to the right
 	            j--; // move j to the previous index
 	        }
