@@ -1,6 +1,8 @@
 package com.project.shapes;
 
 import java.util.Comparator;
+import com.project.shapes.ThreeDimensionalShape;
+
 
 public class HeapSort {
     public static void heapSort(ThreeDimensionalShape[] arr, char choice) {
