@@ -17,5 +17,10 @@ public class Cone extends ThreeDimensionalShape{
 	public double calculateVolume() {
 		return (Math.PI * radius * radius * height) / 3;
 	}
+	
+	@Override
+	public String toString() {
+	    return "Cone with height: " + height + " and radius: " + radius;
+	}
 
 }
