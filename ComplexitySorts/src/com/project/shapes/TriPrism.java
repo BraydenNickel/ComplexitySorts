@@ -2,7 +2,7 @@ package com.project.shapes;
 
 public class TriPrism extends Prism{
 	public TriPrism(double height, double sideLength) {
-		super(height, sideLength);
+		super("Trianglar Prism", height, sideLength);
 	}
 	
 	@Override
@@ -13,11 +13,6 @@ public class TriPrism extends Prism{
 	@Override
 	public double calculateVolume() {
 		return (sideLength * sideLength * height) / 2;
-	}
-	
-	@Override
-	public String toString() {
-	    return "Triangular Prism with height: " + height + " and side length: " + sideLength;
 	}
 
 }
