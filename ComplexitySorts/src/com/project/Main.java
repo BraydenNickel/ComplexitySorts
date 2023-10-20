@@ -74,7 +74,7 @@ public class Main {
         long endTime = System.currentTimeMillis();
 
         // Print sorted shapes and timing information
-        printSortedShapes(shapes, sortAlgorithm, startTime, endTime);
+        printSortedShapes(shapes, compareType, sortAlgorithm, startTime, endTime);
     }
 
     private static ThreeDimensionalShape[] readShapesFromFile(String fileName) {
@@ -135,14 +135,24 @@ public class Main {
         return null; // Return null if there was an issue reading the file
     }
 
-    private static void printSortedShapes(ThreeDimensionalShape[] shapes, char sortAlgorithm, long startTime, long endTime) {
-        System.out.println("Sort type: " + sortAlgorithm);
+    private static void printSortedShapes(ThreeDimensionalShape[] shapes, char sortAlgorithm, char compareType, long startTime, long endTime) {
+        System.out.println("Sorting by: " + sortAlgorithm);
         System.out.println("Sorting time: " + (endTime - startTime) + " milliseconds");
         System.out.println("First sorted shape: " + shapes[0].toString());
         System.out.println("Last sorted shape: " + shapes[shapes.length - 1].toString());
-
+        
         for (int i = 999; i < shapes.length; i += 1000) {
-            System.out.println(shapes[i].toString());
+            ThreeDimensionalShape shape = shapes[i];
+            System.out.println(shape.toString());
+
+            if (compareType == 'v') {
+                System.out.println("Calculated Volume: " + shape.calculateVolume());
+            } else if (compareType == 'a') {
+                System.out.println("Calculated Base Area: " + shape.calculateBaseArea());
+            } else if (compareType == 'h') {
+                System.out.println("Height: " + shape.getHeight());
+            }
         }
     }
+
 }
