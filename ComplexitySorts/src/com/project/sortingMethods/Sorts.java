@@ -6,18 +6,19 @@ import com.project.shapes.ThreeDimensionalShape;
 public class Sorts {
 	
 	// QUICKSORT //
-	public static void quickSort(ThreeDimensionalShape[] arr, int low, int high, Comparator<ThreeDimensionalShape> comparator) {
+	public static void quickSort(ThreeDimensionalShape[] arr, int low, int high, char compareType) {
 	    int pivot;
 	    if (low < high) {
-	        pivot = partition(arr, low, high, comparator);
-	        quickSort(arr, low, pivot - 1, comparator);
-	        quickSort(arr, pivot + 1, high, comparator);
+	        pivot = partition(arr, low, high, compareType);
+	        quickSort(arr, low, pivot - 1, compareType);
+	        quickSort(arr, pivot + 1, high, compareType);
 	    }
 	}
-	public static int partition(ThreeDimensionalShape[] arr, int low, int high, Comparator<ThreeDimensionalShape> comparator) {
+	public static int partition(ThreeDimensionalShape[] arr, int low, int high, char compareType) {
 	    ThreeDimensionalShape pivotShape = arr[low];
 	    int left = low + 1;
 	    int right = high;
+	    Comparator<ThreeDimensionalShape> comparator = ThreeDimensionalShape.shapeComparator(compareType);
 
 	    while (true) {
 	        while (left <= right && comparator.compare(arr[left], pivotShape) <= 0) {
@@ -87,11 +88,11 @@ public class Sorts {
 	}
 	
 	// BUBBLE SORT //
-	public static void bubbleSort(ThreeDimensionalShape[] arr, char choice) {
+	public static void bubbleSort(ThreeDimensionalShape[] arr, char compareType) {
 		int size = arr.length; // get size of array
 		int pass, i;
 		boolean swapped = true; // sets swap check to true
-		Comparator<ThreeDimensionalShape> comparator = ThreeDimensionalShape.shapeComparator(choice);
+		Comparator<ThreeDimensionalShape> comparator = ThreeDimensionalShape.shapeComparator(compareType);
 		
 		for(pass = size - 1; pass >= 0 && swapped; pass--) {
 			swapped = false; // sets swapped check to false for each pass
@@ -108,11 +109,11 @@ public class Sorts {
 	
 	// SELECTION SORT //
 	
-	public static void selectionSort(ThreeDimensionalShape[] arr, char choice) {
+	public static void selectionSort(ThreeDimensionalShape[] arr, char compareType) {
 	    int size = arr.length; // get size of array
 	    int i, j, min;
 	    ThreeDimensionalShape temp;
-		Comparator<ThreeDimensionalShape> comparator = ThreeDimensionalShape.shapeComparator(choice);
+		Comparator<ThreeDimensionalShape> comparator = ThreeDimensionalShape.shapeComparator(compareType);
 
 	    for (i = 0; i < size - 1; i++) {
 	        min = i; // assume index has a min value
@@ -129,11 +130,11 @@ public class Sorts {
 	
 	// INSERTION SORT //
 	
-	public static void insertionSort(ThreeDimensionalShape[] arr, char choice) {
+	public static void insertionSort(ThreeDimensionalShape[] arr, char compareType) {
 	    int size = arr.length; // get size of array
 	    int i, j;
 	    ThreeDimensionalShape temp;
-		Comparator<ThreeDimensionalShape> comparator = ThreeDimensionalShape.shapeComparator(choice);
+		Comparator<ThreeDimensionalShape> comparator = ThreeDimensionalShape.shapeComparator(compareType);
 
 	    for (i = 1; i < size; i++) {
 	        temp = arr[i]; // store the current shape in temp
@@ -149,8 +150,8 @@ public class Sorts {
 
 	// HEAP SORT//
 	
-	public static void heapSort(ThreeDimensionalShape[] arr, char choice) {
-        Comparator<ThreeDimensionalShape> comparator = ThreeDimensionalShape.shapeComparator(choice);
+	public static void heapSort(ThreeDimensionalShape[] arr, char compareType) {
+        Comparator<ThreeDimensionalShape> comparator = ThreeDimensionalShape.shapeComparator(compareType);
         
         int n = arr.length;
 
@@ -194,30 +195,30 @@ public class Sorts {
     }
 
     
-    public static void mergeSort(ThreeDimensionalShape[] shapes, char choice) {
+    public static void mergeSort(ThreeDimensionalShape[] shapes, char compareType) {
         if (shapes == null || shapes.length <= 1) {
             return; // No need to sort
         }
 
-        mergeSort(shapes, 0, shapes.length - 1, choice);
+        mergeSort(shapes, 0, shapes.length - 1, compareType);
     }
 
-    private static void mergeSort(ThreeDimensionalShape[] shapes, int left, int right, char choice) {
+    private static void mergeSort(ThreeDimensionalShape[] shapes, int left, int right, char compareType) {
         if (left < right) {
             int middle = (left + right) / 2;
 
             // Recursively divide and sort the left and right halves
-            mergeSort(shapes, left, middle, choice);
-            mergeSort(shapes, middle + 1, right, choice);
+            mergeSort(shapes, left, middle, compareType);
+            mergeSort(shapes, middle + 1, right, compareType);
 
             // Merge the two sorted halves
-            merge(shapes, left, middle, right, choice);
+            merge(shapes, left, middle, right, compareType);
         }
     }
     
     // MERGE SORT //
 
-    private static void merge(ThreeDimensionalShape[] shapes, int left, int middle, int right, char choice) {
+    private static void merge(ThreeDimensionalShape[] shapes, int left, int middle, int right, char compareType) {
         int n1 = middle - left + 1;
         int n2 = right - middle;
 
@@ -234,7 +235,7 @@ public class Sorts {
         int i = 0, j = 0, k = left;
 
         while (i < n1 && j < n2) {
-            if (ThreeDimensionalShape.shapeComparator(choice).compare(leftArray[i], rightArray[j]) >= 0) {
+            if (ThreeDimensionalShape.shapeComparator(compareType).compare(leftArray[i], rightArray[j]) >= 0) {
                 shapes[k] = leftArray[i];
                 i++;
             } else {
