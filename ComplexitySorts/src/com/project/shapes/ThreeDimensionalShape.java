@@ -22,8 +22,8 @@ public abstract class ThreeDimensionalShape implements Comparable<ThreeDimension
 		return height;
 	}
 	
-	public static Comparator<ThreeDimensionalShape> shapeComparator(char choice){
-		switch (choice) {
+	public static Comparator<ThreeDimensionalShape> shapeComparator(char compareType){
+		switch (compareType) {
 		case 'h':
 			return Comparator.comparing(ThreeDimensionalShape::getHeight);
 		case 'v':
@@ -31,7 +31,7 @@ public abstract class ThreeDimensionalShape implements Comparable<ThreeDimension
 		case 'a': 
 			return Comparator.comparing(ThreeDimensionalShape::calculateBaseArea);
 			default:
-				throw new IllegalArgumentException("Invalid comparison choice: " + choice);
+				throw new IllegalArgumentException("Invalid comparison choice: " + compareType);
 		}
 	}
 }
