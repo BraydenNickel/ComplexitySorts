@@ -17,5 +17,9 @@ public class Cylinder extends ThreeDimensionalShape {
 	public double calculateVolume() {
 		return Math.PI * (radius * radius) * height;
 	}
-
+	
+	@Override
+	public String toString() {
+	    return "Cylinder with height: " + height + " and radius: " + radius;
+	}
 }
