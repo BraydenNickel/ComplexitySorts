@@ -14,4 +14,9 @@ public class PentaPrism extends Prism {
     public double calculateVolume() {
         return (sideLength * sideLength * height);
     }
+    
+    @Override
+	public String toString() {
+	    return "Pentagonal Prism with height: " + height + " and side length: " + sideLength;
+	}
 }
