@@ -14,5 +14,10 @@ public class SquarePrism extends Prism {
 	public double calculateVolume() {
 		return sideLength * sideLength * height;
 	}
+	
+	@Override
+	public String toString() {
+	    return "Square Prism with height: " + height + " and side length: " + sideLength;
+	}
 
 }
