@@ -235,7 +235,7 @@ public class Sorts {
         int i = 0, j = 0, k = left;
 
         while (i < n1 && j < n2) {
-            if (ThreeDimensionalShape.shapeComparator(compareType).compare(leftArray[i], rightArray[j]) >= 0) {
+            if (ThreeDimensionalShape.shapeComparator(compareType).compare(leftArray[i], rightArray[j]) <= 0) {
                 shapes[k] = leftArray[i];
                 i++;
             } else {
