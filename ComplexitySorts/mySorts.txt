@@ -1,0 +1,36 @@
+A heap sort is a sorting technique that is based on comparing data. It is similar to the selection sort since it has to first find the minimum value for the beginning, which then repeats for all remaining elements. a pseudocode of heap sorts would look like:
+
+HeapSort(arr)
+    n = length(arr)
+
+    // Step 1: Build a max heap
+    for i from n/2 down to 1
+        MaxHeapify(arr, i, n)   // O(log n) operations per call
+    // Total operations: O(n * log n)
+
+    // Step 2: Sort the array
+    for i from n down to 2
+        swap(arr[1], arr[i])   // O(1) operations
+        MaxHeapify(arr, 1, i - 1)   // O(log n) operations per call
+    // Total operations: O(n * log n)
+
+// MaxHeapify function
+MaxHeapify(arr, i, heapSize)
+    largest = i
+    left = 2 * i
+    right = 2 * i + 1
+
+    if left <= heapSize and arr[left] > arr[largest]
+        largest = left
+    if right <= heapSize and arr[right] > arr[largest]
+        largest = right
+
+    if largest != i
+        swap(arr[i], arr[largest])   // O(1) operation
+        MaxHeapify(arr, largest, heapSize)   // O(log n) operations per call
+
+// Total operations for HeapSort: O(n * log n)
+
+
+
+Heap sort is a pretty efficient sorting algorithm with a time complexity of O(n log n) for its worst, average, and best cases. It is also an in-place sorting algorithm, sorting the arry in the same memory location without needing additional memory for data structures. Thereforse, it has a space complexity of O(1), making it very efficient in terms of space usage.
