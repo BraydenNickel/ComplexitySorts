@@ -13,4 +13,9 @@ public class OctaPrism extends Prism {
 	public double calculateVolume() {
 		return(sideLength * sideLength * height) / 4 ;
 	}
+	
+	@Override
+	public String toString() {
+	    return "Octagonal Prism with height: " + height + " and side length: " + sideLength;
+	}
 }
