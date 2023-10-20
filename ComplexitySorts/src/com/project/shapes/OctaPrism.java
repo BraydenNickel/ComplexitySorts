@@ -3,7 +3,7 @@ package com.project.shapes;
 public class OctaPrism extends Prism {
 	
 	public OctaPrism(double height, double sideLength) {
-		super(height, sideLength);
+		super("Octagonal Prism", height, sideLength);
 	}
 	@Override
 	public double calculateBaseArea() {
@@ -14,8 +14,4 @@ public class OctaPrism extends Prism {
 		return(sideLength * sideLength * height) / 4 ;
 	}
 	
-	@Override
-	public String toString() {
-	    return "Octagonal Prism with height: " + height + " and side length: " + sideLength;
-	}
 }
