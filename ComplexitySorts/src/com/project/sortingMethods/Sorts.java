@@ -245,7 +245,7 @@ public class Sorts {
             k++;
         }
 
-        while (i < n1) {
+        while (i < n1) { 
             shapes[k] = leftArray[i];
             i++;
             k++;
