@@ -17,8 +17,8 @@ import com.project.sortingMethods.Sorts;
 
 public class Main {
 
-	public static void main(String[] args) {
-		String fileName = null;
+    public static void main(String[] args) {
+        String fileName = null;
         char compareType = ' ';
         char sortAlgorithm = ' ';
 
@@ -27,9 +27,9 @@ public class Main {
             if (args[i].equalsIgnoreCase("-f")) {
                 fileName = args[i + 1];
             } else if (args[i].equalsIgnoreCase("-t")) {
-                compareType = args[i + 1].toLowerCase().charAt(0);
+                compareType = args[i + 1].charAt(0);
             } else if (args[i].equalsIgnoreCase("-s")) {
-                sortAlgorithm = args[i + 1].toLowerCase().charAt(0);
+                sortAlgorithm = args[i + 1].charAt(0);
             }
         }
 
@@ -41,8 +41,13 @@ public class Main {
         // Read shapes from the file and store them in an array
         ThreeDimensionalShape[] shapes = readShapesFromFile(fileName);
 
+        if (shapes == null || shapes.length == 0) {
+            System.out.println("No valid shapes found in the file.");
+            return;
+        }
 
         // Sort the array using the selected sorting algorithm
+        long startTime = System.currentTimeMillis();
         switch (sortAlgorithm) {
             case 'b':
                 Sorts.bubbleSort(shapes, compareType);
@@ -57,7 +62,7 @@ public class Main {
                 Sorts.mergeSort(shapes, compareType);
                 break;
             case 'q':
-                Sorts.quickSort(shapes, compareType);
+                Sorts.quickSort(shapes, 0, shapes.length - 1, compareType);
                 break;
             case 'z':
                 Sorts.heapSort(shapes, compareType);
@@ -66,13 +71,14 @@ public class Main {
                 System.out.println("Invalid sorting algorithm choice.");
                 return;
         }
+        long endTime = System.currentTimeMillis();
 
-        // Print sorted shapes
-        printSortedShapes(shapes, sortAlgorithm);
+        // Print sorted shapes and timing information
+        printSortedShapes(shapes, sortAlgorithm, startTime, endTime);
     }
-	
-	private static ThreeDimensionalShape[] readShapesFromFile(String fileName) {
-    	try {
+
+    private static ThreeDimensionalShape[] readShapesFromFile(String fileName) {
+        try {
             Scanner fileScanner = new Scanner(new File(fileName));
 
             if (fileScanner.hasNextInt()) {
@@ -81,69 +87,62 @@ public class Main {
 
                 for (int i = 0; i < numShapes; i++) {
                     if (fileScanner.hasNext()) {
-                        String shapeType = fileScanner.next();
+                        String shapeType = fileScanner.next().toLowerCase();
                         double value1 = fileScanner.nextDouble();
                         double value2 = fileScanner.nextDouble();
 
-                        switch (shapeType.toLowerCase()) {
-                        case "cylinder":
-                            shapes[i] = new Cylinder(value1, value2);
-                            break;
-                        case "cone":
-                            shapes[i] = new Cone(value1, value2);
-                            break;
-                        case "pyramid":
-                            shapes[i] = new Pyramid(value1, value2);
-                            break;
-                        case "squareprism":
-                            shapes[i] = new SquarePrism(value1, value2);
-                            break;
-                        case "triangularprism":
-                            shapes[i] = new TriPrism(value1, value2);
-                            break;
-                        case "pentagonalprism":
-                            shapes[i] = new PentaPrism(value1, value2);
-                            break;
-                        case "octagonalprism":
-                            shapes[i] = new OctaPrism(value1, value2);
-                            break;
-                        default:
-                            // Handle invalid shape type or throw an exception
-                            break;
+                        switch (shapeType) {
+                            case "cylinder":
+                                shapes[i] = new Cylinder(value1, value2);
+                                break;
+                            case "cone":
+                                shapes[i] = new Cone(value1, value2);
+                                break;
+                            case "pyramid":
+                                shapes[i] = new Pyramid(value1, value2);
+                                break;
+                            case "squareprism":
+                                shapes[i] = new SquarePrism(value1, value2);
+                                break;
+                            case "triangularprism":
+                                shapes[i] = new TriPrism(value1, value2);
+                                break;
+                            case "pentagonalprism":
+                                shapes[i] = new PentaPrism(value1, value2);
+                                break;
+                            case "octagonalprism":
+                                shapes[i] = new OctaPrism(value1, value2);
+                                break;
+                            default:
+                                // Handle invalid shape type or throw an exception
+                                break;
+                        }
                     }
                 }
+
+                fileScanner.close();
+                return shapes;
+            } else {
+                fileScanner.close();
+                throw new IllegalArgumentException("Invalid data format in the file.");
             }
-
-            fileScanner.close();
-            return shapes;
-        } else {
-            fileScanner.close();
-            throw new IllegalArgumentException("Invalid data format in the file.");
+        } catch (FileNotFoundException e) {
+            System.err.println("File not found, check if the file exists and is spelled correctly.");
+        } catch (NumberFormatException e) {
+            System.err.println("Invalid number format in the file.");
         }
-    } catch (FileNotFoundException e) {
-        System.err.println("File not found, check if the file exists and is spelled correctly.");
-    } catch (NumberFormatException e) {
-        System.err.println("Invalid number format in the file.");
+
+        return null; // Return null if there was an issue reading the file
     }
 
-    return null; // Return null if there was an issue reading the file
-    }
+    private static void printSortedShapes(ThreeDimensionalShape[] shapes, char sortAlgorithm, long startTime, long endTime) {
+        System.out.println("Sort type: " + sortAlgorithm);
+        System.out.println("Sorting time: " + (endTime - startTime) + " milliseconds");
+        System.out.println("First sorted shape: " + shapes[0].toString());
+        System.out.println("Last sorted shape: " + shapes[shapes.length - 1].toString());
 
-    private static void printSortedShapes(ThreeDimensionalShape[] shapes, char sortAlgorithm) {
-    	{
-    		long startTime = System.currentTimeMillis();
-    		long endTime = System.currentTimeMillis();
-    		
-    		System.out.println("Sort type: " + sortAlgorithm + "\n" +
-    		"Sorting time: " + (endTime- startTime) + "milliseconds \n");
-    		
-    		System.out.println("First sorted shape: " + shapes[0].toString() + "\n");
-    		
-    		System.out.println("Last sorted shape: " + shapes[shapes.length - 1].toString());
-    		
-    		for (int i = 1000; i < shapes.length; i += 1000) {
-    			System.out.println(shapes[i].toString());
-    		}
-    	}
+        for (int i = 999; i < shapes.length; i += 1000) {
+            System.out.println(shapes[i].toString());
+        }
     }
 }
