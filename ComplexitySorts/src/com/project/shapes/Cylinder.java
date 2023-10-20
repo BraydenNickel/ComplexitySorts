@@ -4,7 +4,7 @@ public class Cylinder extends ThreeDimensionalShape {
 	double radius;
 	
 	public Cylinder(double height, double radius) {
-		super(height);
+		super("Cylinder", height);
 		this.radius = radius;
 	}
 	
@@ -18,8 +18,4 @@ public class Cylinder extends ThreeDimensionalShape {
 		return Math.PI * (radius * radius) * height;
 	}
 	
-	@Override
-	public String toString() {
-	    return "Cylinder with height: " + height + " and radius: " + radius;
-	}
 }
