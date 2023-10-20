@@ -2,7 +2,7 @@ package com.project.shapes;
 
 public class PentaPrism extends Prism {
     public PentaPrism(double height, double sideLength) {
-		super(height, sideLength);
+		super("Pentagonal Prism", height, sideLength);
 	}
 
     @Override
@@ -15,8 +15,4 @@ public class PentaPrism extends Prism {
         return (sideLength * sideLength * height);
     }
     
-    @Override
-	public String toString() {
-	    return "Pentagonal Prism with height: " + height + " and side length: " + sideLength;
-	}
 }
