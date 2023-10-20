@@ -14,7 +14,6 @@ public class Sorts {
 	        quickSort(arr, pivot + 1, high, comparator);
 	    }
 	}
-	
 	public static int partition(ThreeDimensionalShape[] arr, int low, int high, Comparator<ThreeDimensionalShape> comparator) {
 	    ThreeDimensionalShape pivotShape = arr[low];
 	    int left = low + 1;
@@ -148,5 +147,113 @@ public class Sorts {
 	    }
 	}
 
+	// HEAP SORT//
+	
+	public static void heapSort(ThreeDimensionalShape[] arr, char choice) {
+        Comparator<ThreeDimensionalShape> comparator = ThreeDimensionalShape.shapeComparator(choice);
+        
+        int n = arr.length;
 
+        // Build a max heap
+        for (int i = n / 2 - 1; i >= 0; i--) {
+            heapify(arr, n, i, comparator);
+        }
+
+        // Extract elements one by one from the heap
+        for (int i = n - 1; i > 0; i--) {
+            // Swap the current root with the last element
+            ThreeDimensionalShape temp = arr[0];
+            arr[0] = arr[i];
+            arr[i] = temp;
+
+            // Call max heapify on the reduced heap
+            heapify(arr, i, 0, comparator);
+        }
+    }
+
+    private static void heapify(ThreeDimensionalShape[] arr, int n, int i, Comparator<ThreeDimensionalShape> comparator) {
+        int largest = i;
+        int left = 2 * i + 1;
+        int right = 2 * i + 2;
+
+        if (left < n && comparator.compare(arr[left], arr[largest]) > 0) {
+            largest = left;
+        }
+
+        if (right < n && comparator.compare(arr[right], arr[largest]) > 0) {
+            largest = right;
+        }
+
+        if (largest != i) {
+            ThreeDimensionalShape swap = arr[i];
+            arr[i] = arr[largest];
+            arr[largest] = swap;
+
+            heapify(arr, n, largest, comparator);
+        }
+    }
+
+    
+    public static void mergeSort(ThreeDimensionalShape[] shapes, char choice) {
+        if (shapes == null || shapes.length <= 1) {
+            return; // No need to sort
+        }
+
+        mergeSort(shapes, 0, shapes.length - 1, choice);
+    }
+
+    private static void mergeSort(ThreeDimensionalShape[] shapes, int left, int right, char choice) {
+        if (left < right) {
+            int middle = (left + right) / 2;
+
+            // Recursively divide and sort the left and right halves
+            mergeSort(shapes, left, middle, choice);
+            mergeSort(shapes, middle + 1, right, choice);
+
+            // Merge the two sorted halves
+            merge(shapes, left, middle, right, choice);
+        }
+    }
+    
+    // MERGE SORT //
+
+    private static void merge(ThreeDimensionalShape[] shapes, int left, int middle, int right, char choice) {
+        int n1 = middle - left + 1;
+        int n2 = right - middle;
+
+        ThreeDimensionalShape[] leftArray = new ThreeDimensionalShape[n1];
+        ThreeDimensionalShape[] rightArray = new ThreeDimensionalShape[n2];
+
+        for (int i = 0; i < n1; i++) {
+            leftArray[i] = shapes[left + i];
+        }
+        for (int i = 0; i < n2; i++) {
+            rightArray[i] = shapes[middle + 1 + i];
+        }
+
+        int i = 0, j = 0, k = left;
+
+        while (i < n1 && j < n2) {
+            if (ThreeDimensionalShape.shapeComparator(choice).compare(leftArray[i], rightArray[j]) >= 0) {
+                shapes[k] = leftArray[i];
+                i++;
+            } else {
+                shapes[k] = rightArray[j];
+                j++;
+            }
+            k++;
+        }
+
+        while (i < n1) {
+            shapes[k] = leftArray[i];
+            i++;
+            k++;
+        }
+
+        while (j < n2) {
+            shapes[k] = rightArray[j];
+            j++;
+            k++;
+        }
+    }
 }
