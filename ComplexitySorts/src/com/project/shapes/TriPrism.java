@@ -14,5 +14,10 @@ public class TriPrism extends Prism{
 	public double calculateVolume() {
 		return (sideLength * sideLength * height) / 2;
 	}
+	
+	@Override
+	public String toString() {
+	    return "Triangular Prism with height: " + height + " and side length: " + sideLength;
+	}
 
 }
