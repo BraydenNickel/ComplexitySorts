@@ -203,9 +203,10 @@ public class Sorts {
 
     private static void mergeSort(ThreeDimensionalShape[] shapes, int left, int right, char compareType) {
         if (left < right) {
+        	//finds middle point
             int middle = (left + right) / 2;
 
-            // Recursively divide and sort the left and right halves
+            // sorts first and second halves
             mergeSort(shapes, left, middle, compareType);
             mergeSort(shapes, middle + 1, right, compareType);
 
@@ -214,14 +215,22 @@ public class Sorts {
         }
     }
     
+<<<<<<< Updated upstream
 
+=======
+    // MERGE SORT //
+>>>>>>> Stashed changes
     private static void merge(ThreeDimensionalShape[] shapes, int left, int middle, int right, char compareType) {
+    	
+    	// finds sizes of two subarrarys to merg
         int n1 = middle - left + 1;
         int n2 = right - middle;
-
+        
+        //creates  temporary arrarys
         ThreeDimensionalShape[] leftArray = new ThreeDimensionalShape[n1];
         ThreeDimensionalShape[] rightArray = new ThreeDimensionalShape[n2];
-
+        
+        //copy's data to temporary arrays
         for (int i = 0; i < n1; i++) {
             leftArray[i] = shapes[left + i];
         }
@@ -231,8 +240,10 @@ public class Sorts {
 
         int i = 0, j = 0, k = left;
 
+        Comparator<ThreeDimensionalShape> comparator = ThreeDimensionalShape.shapeComparator(compareType);
+
         while (i < n1 && j < n2) {
-            if (ThreeDimensionalShape.shapeComparator(compareType).compare(leftArray[i], rightArray[j]) >= 0) {
+            if (comparator.compare(leftArray[i], rightArray[j]) <= 0) {
                 shapes[k] = leftArray[i];
                 i++;
             } else {
@@ -254,5 +265,9 @@ public class Sorts {
             k++;
         }
     }
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+
 >>>>>>> Stashed changes
 }

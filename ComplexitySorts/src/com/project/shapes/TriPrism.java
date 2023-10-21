@@ -2,7 +2,7 @@ package com.project.shapes;
 
 public class TriPrism extends Prism{
 	public TriPrism(double height, double sideLength) {
-		super(height, sideLength);
+		super("triPrism",height, sideLength); 
 	}
 	
 	@Override

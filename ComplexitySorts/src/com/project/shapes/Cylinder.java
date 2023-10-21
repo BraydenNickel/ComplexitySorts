@@ -4,7 +4,11 @@ public class Cylinder extends ThreeDimensionalShape {
 	double radius;
 	
 	public Cylinder(double height, double radius) {
+<<<<<<< Updated upstream
 		super(height);
+=======
+		super("Cylinder",height);
+>>>>>>> Stashed changes
 		this.radius = radius;
 	}
 	
