@@ -14,6 +14,11 @@ import com.project.shapes.ThreeDimensionalShape;
 import com.project.shapes.TriPrism;
 import com.project.sortingMethods.Sorts;
 
+/**
+ * @author Ruthless aka Brayden
+ * @author Ethan
+ * @author Kyle
+ */
 
 public class Main {
 
